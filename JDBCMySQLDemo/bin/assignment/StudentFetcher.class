@@ -1,5 +1,7 @@
+/*
 51)Create a Java program to connect to a MySQL database and retrieve all student records from a Student table using JDBC. 
 Display each student's ID, name, age, course, and marks. 
+*/
 import java.sql.*; 
 public class Question51 { 
     public static void main(String[] args) { 
