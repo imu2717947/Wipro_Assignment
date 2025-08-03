@@ -1,41 +1,33 @@
-Êþº¾   C ¦   assignment/StudentFetcher   java/lang/Object <init> ()V Code
-  	   LineNumberTable LocalVariableTable this Lassignment/StudentFetcher; main ([Ljava/lang/String;)V  "jdbc:mysql://localhost:3306/testdb  root  Shaik Imran$  com.mysql.cj.jdbc.Driver
-     java/lang/Class    forName %(Ljava/lang/String;)Ljava/lang/Class;
-  !    java/sql/DriverManager " # 
-getConnection M(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;	 % '  & java/lang/System ( ) out Ljava/io/PrintStream; +  âœ… Connected to MySQL database.
- - /  . java/io/PrintStream 0 1  println (Ljava/lang/String;)V 3 SELECT * FROM Student
- 5 7  6 java/sql/Connection 8 9 createStatement ()Ljava/sql/Statement;
- ; =  < java/sql/Statement > ? executeQuery ((Ljava/lang/String;)Ljava/sql/ResultSet; A 
-í ½í³„ Student Records: C %-5s %-10s %-5s %-10s %-6s
- E ID G Name I Age K Course M Marks
- - O P Q printf <(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream; S 1------------------------------------------------- U id
- W Y  X java/sql/ResultSet Z [ getInt (Ljava/lang/String;)I ] name
- W _ ` a 	getString &(Ljava/lang/String;)Ljava/lang/String; c age e course g marks
- W i j k 	getDouble (Ljava/lang/String;)D m %-5d %-10s %-5d %-10s %-6.2f
-
- o q  p java/lang/Integer r s  valueOf (I)Ljava/lang/Integer;
- u w  v java/lang/Double r x (D)Ljava/lang/Double;
- W z { | next ()Z
- W ~   close
- ; ~
- 5 ~ ƒ âŒ JDBC Driver not found.
- … ‡  †  java/lang/ClassNotFoundException ˆ  printStackTrace Š âŒ SQL Error.
- Œ ‡   java/sql/SQLException args [Ljava/lang/String; url Ljava/lang/String; username password conn Ljava/sql/Connection; query stmt Ljava/sql/Statement; rs Ljava/sql/ResultSet; I D e "Ljava/lang/ClassNotFoundException; Ljava/sql/SQLException; 
-StackMapTable    £ java/lang/String 
-SourceFile StudentFetcher.java !                /     *· ±    
-        
-         
-   	       ™     LMN¸ W+,-¸ :² $*¶ ,2:¹ 4 :¹ : : ² $@¶ ,² $B½ YDSYFSYHSYJSY LS¶ NW² $R¶ ,§ i T¹ V 6 \¹ ^ :	 b¹ V 6
- d¹ ^ :
- f¹ h 9² $l½ Y¸ nSY	SY
-¸ nSY
-SY ¸ tS¶ NW ¹ y šÿ“ ¹ } ¹ € ¹  § $:² $‚¶ ,¶ „§ :² $‰¶ ,¶ ‹±  	 õ ø … 	 õ
- Œ  
-   z         	 	 
-       #  ,  7  ?  e  m  p  {  †   ‘ ! œ " § $ Ö  à ( ç ) î * õ + ú , -
- . / 0 2 
-   ˜    Ž      ‘   ’ ‘  	 “ ‘   Þ ” •  # Ò – ‘  , É — ˜  7 ¾ ™ š   { [ U ›  † P ] ‘ 	 ‘ E c › 
- œ : e ‘ 
- § / g œ  ú 
-  ž  
-  Ÿ      ? ÿ p   ¡  ¢  ¢  ¢  5  ¢  ;  W  û eÿ !   ¡  ¢  ¢  ¢   …Q  Œ  ¤    ¥
+51)Create a Java program to connect to a MySQL database and retrieve all student records from a Student table using JDBC. 
+Display each student's ID, name, age, course, and marks. 
+import java.sql.*; 
+public class Question51 { 
+    public static void main(String[] args) { 
+        String url = "jdbc:mysql://localhost:3306/college"; 
+        String user = "root"; 
+        String password = "your_mysql_password"; // Replace with your actual password 
+        try { 
+            // Load the MySQL JDBC driver (optional for newer versions) 
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
+            // Establish connection 
+            Connection con = DriverManager.getConnection(url, user, password); 
+            // Create statement and query 
+            Statement stmt = con.createStatement(); 
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Student"); 
+            // Display data 
+            System.out.println("ID | Name | Age | Course | Marks"); 
+            while (rs.next()) { 
+                int id = rs.getInt("id"); 
+                String name = rs.getString("name"); 
+                int age = rs.getInt("age"); 
+                String course = rs.getString("course"); 
+                int marks = rs.getInt("marks"); 
+                System.out.println(id + " | " + name + " | " + age + " | " + course + " | " + marks); 
+            } 
+            // Close connection 
+            con.close(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        } 
+    } 
+} 
